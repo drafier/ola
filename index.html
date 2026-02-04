@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset=utf-8>
+<title>hoi</title>
+</head>
+<h1> als je dit leest ben je beter dan de rest
+
+<body>
+</body>
+</html>
