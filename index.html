@@ -1,127 +1,21 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wachtwoordanalyse</title>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.container {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    text-align: center;
-}
-
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.result {
-    margin-top: 15px;
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.safe {
-    color: #5cb85c;
-}
-
-.moderate {
-    color: #f0ad4e;
-}
-
-.unsafe {
-    color: #d9534f;
-}
-</style>
+ <title>Hashing Tool</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
-
 <body>
-
-<div class="container">
-    <h2>Wachtwoordanalyse</h2>
-    <p>Voer een wachtwoord in en zie hoe veilig het is.</p>
-
-    <input type="password" id="password" placeholder="Voer je wachtwoord in">
-    <button onclick="analyzePassword()">Analyseer Wachtwoord</button>
-
-    <div id="result" class="result"></div>
-</div>
-
-<script>
-function analyzePassword() {
-
-    const password = document.getElementById("password").value;
-    const resultDiv = document.getElementById("result");
-
-    const lowercase = (password.match(/[a-z]/g) || []).length;
-    const uppercase = (password.match(/[A-Z]/g) || []).length;
-    const digits = (password.match(/[0-9]/g) || []).length;
-    const specialChars = (password.match(/[^a-zA-Z0-9]/g) || []).length;
-    const length = password.length;
-
-    let strength = "";
-
-    if (length >= 12 && lowercase > 0 && uppercase > 0 && digits > 0 && specialChars > 0) {
-        strength = "<span class='safe'>Veilig</span>";
-    } 
-    else if (length >= 8 && (lowercase > 0 && uppercase > 0 && digits > 0)) {
-        strength = "<span class='moderate'>Matig veilig</span>";
-    } 
-    else {
-        strength = "<span class='unsafe'>Onveilig</span>";
-    }
-
-    resultDiv.innerHTML = `
-        <p><strong>Analyse:</strong></p>
-        <ul>
-            <li>Kleine letters: ${lowercase}</li>
-            <li>Hoofdletters: ${uppercase}</li>
-            <li>Cijfers: ${digits}</li>
-            <li>Speciale tekens: ${specialChars}</li>
-            <li>Lengte: ${length} tekens</li>
-        </ul>
-        <p><strong>Wachtwoordsterkte:</strong> ${strength}</p>
-    `;
-}
-</script>
-
+ <h1>Hashing Tool</h1>
+ <label for="input">Voer tekst in:</label>
+ <input type="text" id="input" oninput="generateHash()">
+ <p>Hashwaarde (SHA-256):</p>
+ <textarea id="output" rows="4" cols="50" readonly></textarea>
+ <script>
+ function generateHash() {
+ var input = document.getElementById("input").value;
+ var hash = CryptoJS.SHA256(input);
+ document.getElementById("output").value = hash;
+ }
+ </script>
 </body>
 </html>
-
-
-
